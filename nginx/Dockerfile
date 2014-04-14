@@ -6,6 +6,7 @@
 
 # Pull base image.
 FROM ubuntu:latest
+MAINTAINER Florian Demmer <fdemmer@gmail.com>
 
 # Install Nginx.
 RUN apt-get update

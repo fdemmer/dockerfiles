@@ -4,6 +4,7 @@
 
 # Pull base image.
 FROM fdemmer/nginx:latest
+MAINTAINER Florian Demmer <fdemmer@gmail.com>
 
 # Install requirements
 RUN apt-get install -y git
