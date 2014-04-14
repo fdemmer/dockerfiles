@@ -12,6 +12,8 @@ MAINTAINER Florian Demmer <fdemmer@gmail.com>
 ENV TERM xterm
 
 RUN apt-get update
+#RUN apt-get upgrade -y
+
 # Install nginx
 RUN apt-get install -y nginx
 RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
