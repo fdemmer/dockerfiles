@@ -9,6 +9,7 @@ MAINTAINER Florian Demmer <fdemmer@gmail.com>
 # Deal with warnings
 ENV TERM xterm
 
+RUN apt-get update
 # Install requirements
 RUN apt-get install -y git
 
