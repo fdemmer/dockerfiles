@@ -6,6 +6,9 @@
 FROM fdemmer/nginx:latest
 MAINTAINER Florian Demmer <fdemmer@gmail.com>
 
+# Deal with warnings
+ENV TERM xterm
+
 # Install requirements
 RUN apt-get install -y git
 

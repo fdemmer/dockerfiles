@@ -8,6 +8,9 @@
 FROM ubuntu:latest
 MAINTAINER Florian Demmer <fdemmer@gmail.com>
 
+# Deal with warnings
+ENV TERM xterm
+
 RUN apt-get update
 # Install nginx
 RUN apt-get install -y nginx
