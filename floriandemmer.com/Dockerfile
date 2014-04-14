@@ -1,8 +1,8 @@
 #
-# Static website Dockerfile
+# Static website with nginx Dockerfile
 #
 
-# Pull base image.
+# Pull base image
 FROM fdemmer/nginx:latest
 MAINTAINER Florian Demmer <fdemmer@gmail.com>
 
@@ -15,5 +15,5 @@ ADD site.conf /etc/nginx/sites-enabled/default
 # Bootstrap static site
 RUN cd /usr/share/nginx/www && git clone https://github.com/fdemmer/floriandemmer.com.git
 
-# Attach volumes.
+# Attach volumes
 VOLUME /usr/share/nginx/www
