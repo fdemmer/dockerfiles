@@ -28,3 +28,4 @@ EXPOSE 80
 
 # Define default command
 ENTRYPOINT ["nginx"]
+CMD []
