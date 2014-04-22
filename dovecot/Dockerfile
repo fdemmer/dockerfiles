@@ -1,6 +1,12 @@
 #
 # dovecot Dockerfile
 #
+# run with a volume pointed to the ssl cert/key:
+#   -v /root/ssl:/etc/ssl/private
+#
+# expose imaps port:
+#   -p 993:993
+#
 
 # Pull base image
 FROM ubuntu:latest

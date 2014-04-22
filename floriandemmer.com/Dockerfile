@@ -1,6 +1,12 @@
 #
 # Static website with nginx Dockerfile
 #
+# run with a volume pointed to the ssl cert/key:
+#   -v /root/ssl:/etc/ssl/private
+#
+# expose http and https porta:
+#   -p 443:443 -p 80:80
+#
 
 # Pull base image
 FROM fdemmer/nginx:latest
