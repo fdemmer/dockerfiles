@@ -21,12 +21,12 @@ ADD nginx.conf /etc/nginx/nginx.conf
 # Attach volumes
 VOLUME /var/log/nginx
 
-# Set working directory
-WORKDIR /etc/nginx
-
 # Expose ports
 EXPOSE 80
 EXPOSE 443
+
+# Set working directory
+WORKDIR /etc/nginx
 
 # Define default command
 ENTRYPOINT ["nginx"]
