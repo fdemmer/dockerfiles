@@ -11,10 +11,11 @@ MAINTAINER Florian Demmer <fdemmer@gmail.com>
 # Deal with warnings
 ENV TERM xterm
 
-RUN apt-get update
-
 # Install nginx
-RUN apt-get install -y nginx
+RUN apt-get update && apt-get install -y \
+    nginx
+
+# Update configuration
 ADD nginx.conf /etc/nginx/nginx.conf
 
 # Attach volumes

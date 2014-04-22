@@ -15,14 +15,13 @@ MAINTAINER Florian Demmer <fdemmer@gmail.com>
 # Deal with warnings
 ENV TERM xterm
 
-RUN apt-get update
-
-# Install requirements
-RUN apt-get install -y git
-
 # Update configuration
 RUN rm /etc/nginx/sites-enabled/default
 ADD site.conf /etc/nginx/sites-enabled/site.conf
+
+# Install tools
+RUN apt-get update && apt-get install -y \
+    git
 
 # Bootstrap static site
 RUN cd /usr/share/nginx/www && git clone https://github.com/fdemmer/floriandemmer.com.git

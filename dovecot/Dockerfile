@@ -18,8 +18,10 @@ ENV TERM xterm
 RUN apt-get update
 
 # Install dovecot
-RUN apt-get install -y dovecot-imapd
-RUN apt-get install -y openssl-blacklist ntp
+RUN apt-get update && apt-get install -y \
+    dovecot-imapd \
+    openssl-blacklist \
+    ntp
 
 # Attach volumes
 VOLUME /etc/ssl/private
