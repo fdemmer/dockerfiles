@@ -16,7 +16,7 @@ RUN apt-get install -y dovecot-imapd
 RUN apt-get install -y openssl-blacklist ntp
 
 # Attach volumes
-#VOLUME /etc/dovecot
+VOLUME /etc/ssl/private
 #VOLUME /var/log
 VOLUME /home
 

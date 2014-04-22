@@ -22,4 +22,5 @@ ADD site.conf /etc/nginx/sites-enabled/site.conf
 RUN cd /usr/share/nginx/www && git clone https://github.com/fdemmer/floriandemmer.com.git
 
 # Attach volumes
+VOLUME /etc/ssl/private
 VOLUME /usr/share/nginx/www
