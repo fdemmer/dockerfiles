@@ -16,7 +16,7 @@ RUN apt-get update
 
 # Install nginx
 RUN apt-get install -y nginx
-RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
+ADD nginx.conf /etc/nginx/nginx.conf
 
 # Attach volumes
 VOLUME /etc/nginx/sites-enabled
