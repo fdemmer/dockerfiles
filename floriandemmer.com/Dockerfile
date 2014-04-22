@@ -15,7 +15,8 @@ RUN apt-get update
 RUN apt-get install -y git
 
 # Update configuration
-ADD site.conf /etc/nginx/sites-enabled/default
+RUN rm /etc/nginx/sites-enabled/default
+ADD site.conf /etc/nginx/sites-enabled/site.conf
 
 # Bootstrap static site
 RUN cd /usr/share/nginx/www && git clone https://github.com/fdemmer/floriandemmer.com.git

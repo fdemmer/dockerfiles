@@ -18,7 +18,6 @@ RUN apt-get install -y nginx
 ADD nginx.conf /etc/nginx/nginx.conf
 
 # Attach volumes
-VOLUME /etc/nginx/sites-enabled
 VOLUME /var/log/nginx
 
 # Set working directory
