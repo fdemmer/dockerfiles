@@ -10,7 +10,6 @@ MAINTAINER Florian Demmer <fdemmer@gmail.com>
 ENV TERM xterm
 
 RUN apt-get update
-#RUN apt-get upgrade -y
 
 # Install dovecot
 RUN apt-get install -y dovecot-imapd
