@@ -20,8 +20,7 @@ RUN apt-get update
 # Install dovecot
 RUN apt-get update && apt-get install -y \
     dovecot-imapd \
-    openssl-blacklist \
-    ntp
+    openssl-blacklist
 
 # Attach volumes
 VOLUME /etc/ssl/private
