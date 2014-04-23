@@ -29,8 +29,7 @@ VOLUME /etc/ssl/private
 VOLUME /home
 
 # Expose ports
-EXPOSE 143
-EXPOSE 993
+EXPOSE 143 993
 
 # Define default command
 ENTRYPOINT ["dovecot"]

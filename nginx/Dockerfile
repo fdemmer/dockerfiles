@@ -22,8 +22,7 @@ ADD nginx.conf /etc/nginx/nginx.conf
 VOLUME /var/log/nginx
 
 # Expose ports
-EXPOSE 80
-EXPOSE 443
+EXPOSE 80 443
 
 # Set working directory
 WORKDIR /etc/nginx
