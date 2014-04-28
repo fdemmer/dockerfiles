@@ -34,9 +34,6 @@ RUN apt-get update && apt-get install -y \
     slapd \
     ldap-utils
 
-# Add config script
-ADD config.sh ${HOME}/cm/config.sh
-
 # Add run script
 ADD runit.sh /etc/service/slapd/run
 

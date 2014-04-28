@@ -25,4 +25,6 @@ ENV LDAP_ORGANISATION Florian Demmer
 ENV LDAP_DOMAIN floriandemmer.com
 
 
+# Add/run config script
+ADD config.sh ${HOME}/cm/config.sh
 RUN ${HOME}/cm/config.sh
