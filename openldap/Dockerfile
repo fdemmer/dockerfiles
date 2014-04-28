@@ -41,5 +41,8 @@ ADD runit.sh /etc/service/slapd/run
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 
+# Volumes
+VOLUME /var/log
+
 # Ports
 EXPOSE 389 636
