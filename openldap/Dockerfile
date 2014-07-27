@@ -22,9 +22,6 @@ ENV LC_ALL C
 ENV HOME /root
 ENV DEBIAN_FRONTEND noninteractive
 
-# Setup runit
-CMD ["/sbin/my_init"]
-
 # Disable baseimage SSH
 RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
 
@@ -40,6 +37,9 @@ ADD runit.sh /etc/service/slapd/run
 # Housekeeping
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+
+# Setup runit
+CMD ["/sbin/my_init"]
 
 # Volumes
 VOLUME /var/log
