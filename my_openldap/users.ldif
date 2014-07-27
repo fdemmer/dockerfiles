@@ -1,0 +1,16 @@
+dn: cn=imap,dc=floriandemmer,dc=com
+objectClass: top
+objectClass: posixGroup
+cn: imap
+gidNumber: 1000
+
+dn: cn=Florian Demmer,cn=imap,dc=floriandemmer,dc=com
+objectClass: inetOrgPerson
+objectClass: top
+objectClass: posixAccount
+cn: Florian Demmer
+uid: florian
+uidNumber: 5001
+gidNumber: 1000
+sn: Demmer
+homeDirectory: /var/mail/florian
