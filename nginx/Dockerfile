@@ -38,10 +38,13 @@ RUN apt-get update && apt-get upgrade -y
 
 # Install nginx
 RUN apt-get update && apt-get install -y \
+    php5-common php5-cli php5-fpm \
     nginx
 
-# Add run script
-ADD runit.sh /etc/service/nginx/run
+# Add run scripts
+ADD service/phpfpm.sh /etc/service/phpfpm/run
+RUN chmod +x /etc/service/phpfpm/run
+ADD service/nginx.sh /etc/service/nginx/run
 RUN chmod +x /etc/service/nginx/run
 
 # Update configuration
