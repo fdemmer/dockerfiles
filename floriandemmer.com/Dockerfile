@@ -31,11 +31,15 @@ RUN apt-get update && apt-get install -y \
 
 # Update configuration
 RUN rm /etc/nginx/sites-enabled/default
-ADD site.conf /etc/nginx/sites-enabled/site.conf
+ADD default.conf /etc/nginx/sites-enabled/default.conf
+ADD www.conf /etc/nginx/sites-enabled/www.conf
 
-# Bootstrap static site
+
+# Clone static site
 RUN mkdir /usr/share/nginx/www
 RUN cd /usr/share/nginx/www && git clone https://github.com/fdemmer/floriandemmer.com.git
+RUN cd /usr/share/nginx/www && mv floriandemmer.com www.floriandemmer.com
+
 
 # Housekeeping
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
