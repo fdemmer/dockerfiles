@@ -6,13 +6,19 @@
 #    http://phusion.github.io/baseimage-docker
 #    https://github.com/dockerfile/nginx
 #
+#
+# Build:
+#
+#  docker build -t fdemmer/nginx .
+#
+#
 # Usage:
 #
 # run with a volume pointed to the ssl cert/key:
 #   -v /root/ssl:/etc/ssl/private:ro
 #
-# expose imaps port:
-#   -p 443:443
+# expose port:
+#   -p 80:80
 #
 
 # Pull base image
