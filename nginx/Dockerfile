@@ -48,7 +48,7 @@ ADD services/nginx.sh /etc/service/nginx/run
 RUN chmod +x /etc/service/nginx/run
 
 # Update configuration
-ADD nginx.conf /etc/nginx/nginx.conf
+ADD config/nginx.conf /etc/nginx/nginx.conf
 
 # Housekeeping
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
