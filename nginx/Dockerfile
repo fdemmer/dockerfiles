@@ -42,9 +42,9 @@ RUN apt-get update && apt-get install -y \
     nginx
 
 # Add run scripts
-ADD service/phpfpm.sh /etc/service/phpfpm/run
+ADD services/phpfpm.sh /etc/service/phpfpm/run
 RUN chmod +x /etc/service/phpfpm/run
-ADD service/nginx.sh /etc/service/nginx/run
+ADD services/nginx.sh /etc/service/nginx/run
 RUN chmod +x /etc/service/nginx/run
 
 # Update configuration
