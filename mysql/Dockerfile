@@ -41,11 +41,11 @@ RUN apt-get update && apt-get install -y \
     mysql-server-5.6
 
 # Add run script
-ADD runit.sh /etc/service/mysql/run
+ADD services/mysql.sh /etc/service/mysql/run
 RUN chmod +x /etc/service/mysql/run
 
 # Update configuration
-ADD mysql.conf /etc/mysql/conf.d/my.cnf
+ADD config/bind.conf /etc/mysql/conf.d/bind.cnf
 
 # Remove pre-installed database
 RUN rm -rf /var/lib/mysql/*
