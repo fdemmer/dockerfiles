@@ -30,28 +30,28 @@ ENV HOME /root
 ENV DEBIAN_FRONTEND noninteractive
 
 # Disable baseimage SSH
-#RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
-
+RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
 
 # Upgrade baseimage
 RUN apt-get update && apt-get upgrade -y
 
-# Install nginx
-RUN apt-get update && apt-get install -y \
-    php5-common php5-cli php5-fpm \
-    nginx
+
+# Setup ansible
+RUN apt-get update && apt-get install -y ansible python-apt
+ADD ansible/hosts /etc/ansible/hosts
+ADD ansible ${HOME}/ansible
+
 
 # Add run scripts
 ADD service/phpfpm.sh /etc/service/phpfpm/run
 ADD service/nginx.sh /etc/service/nginx/run
-RUN chmod +x /etc/service/phpfpm/run
-RUN chmod +x /etc/service/nginx/run
 
-# Update configuration
+# Add configuration
 ADD config/nginx.conf /etc/nginx/nginx.conf
 
-# Housekeeping
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Run ansible
+RUN ansible-playbook ${HOME}/ansible/site.yml
 
 
 # Setup runit
