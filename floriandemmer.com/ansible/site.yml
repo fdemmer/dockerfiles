@@ -1,0 +1,88 @@
+---
+- name: install wordpress and upgrade php
+  hosts: localhost
+  vars:
+    domain: floriandemmer.com
+    version: master
+    wp_version: 4.0
+    wp_sha256sum: 03a8437ca9ae14c9a7f6d4062672e9685d45e1aaad6c020af2673cb42a34c0ac
+    wp_db_name: wordpress
+    wp_db_user: wordpress
+    wp_db_password: wordpress
+    wp_db_host: mysqldb
+
+  tasks:
+    - name: install tools
+      apt: name={{ item }} state=latest update_cache=yes
+      with_items:
+        - pwgen
+        - mysql-client
+
+    - name: upgrade php
+      apt: name={{ item }} state=latest
+      with_items:
+        - php5-curl
+        - php5-gd
+        - php5-intl
+        - php-pear
+        - php5-imagick
+        - php5-imap
+        - php5-mcrypt
+        - php5-memcache
+        - php5-ming
+        - php5-ps
+        - php5-pspell
+        - php5-recode
+        - php5-sqlite
+        - php5-tidy
+        - php5-xmlrpc
+        - php5-xsl
+
+    - name: clean nginx config
+      file: path={{ item.path }} state=absent
+      with_items:
+        - { path: '/etc/nginx/sites-enabled/default' }
+
+    - name: configure nginx
+      template: src={{ item.src }} dest={{ item.dest }} mode="0664"
+      with_items:
+        - { src: 'config/nginx/default.conf', dest: '/etc/nginx/sites-enabled/default.conf' }
+        - { src: 'config/nginx/wordpress.conf', dest: '/etc/nginx/sites-enabled/wordpress.conf' }
+        - { src: 'config/nginx/www.conf', dest: '/etc/nginx/sites-enabled/www.conf' }
+
+    - name: install floriandemmer.com
+      git: repo=https://github.com/fdemmer/floriandemmer.com.git
+           dest=/usr/share/nginx/www.floriandemmer.com
+           version={{ version }}
+
+    - name: update floriandemmer.com owner
+      file: path=/usr/share/nginx/www.floriandemmer.com
+            owner=www-data group=www-data
+            state=directory recurse=yes
+
+    - name: download wordpress
+      get_url: url=http://wordpress.org/wordpress-{{ wp_version }}.tar.gz
+               dest=/tmp/wordpress-{{ wp_version }}.tar.gz
+               sha256sum="{{ wp_sha256sum }}"
+
+    - name: install wordpress
+      unarchive: src=/tmp/wordpress-{{ wp_version }}.tar.gz
+                 dest=/usr/share/nginx
+                 copy=no
+
+    - name: download fresh salt
+      local_action: command curl https://api.wordpress.org/secret-key/1.1/salt/
+      register: "wp_salt"
+      sudo: no
+
+    - name: configure wordpress
+      template: src=config/wordpress/wp-config.php
+                dest=/usr/share/nginx/wordpress/
+
+    - name: update wordpress owner
+      file: path=/usr/share/nginx/wordpress/
+            owner=www-data group=www-data
+            state=directory recurse=yes
+
+    - name: apt-get clean
+      shell: apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

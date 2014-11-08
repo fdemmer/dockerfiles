@@ -25,24 +25,13 @@ FROM fdemmer/nginx:latest
 MAINTAINER Florian Demmer <fdemmer@gmail.com>
 
 
-# Install tools
-RUN apt-get update && apt-get install -y \
-    git
+ENV DOMAIN dragonstone
+ENV DB_PASSWORD wordpress
+ENV DB_HOST mysqldb
 
-# Update configuration
-RUN rm /etc/nginx/sites-enabled/default
-ADD default.conf /etc/nginx/sites-enabled/default.conf
-ADD www.conf /etc/nginx/sites-enabled/www.conf
-
-
-# Clone static site
-RUN mkdir /usr/share/nginx/www
-RUN cd /usr/share/nginx/www && git clone https://github.com/fdemmer/floriandemmer.com.git
-RUN cd /usr/share/nginx/www && mv floriandemmer.com www.floriandemmer.com
-
-
-# Housekeeping
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+# Add and run provisioning
+ADD ansible ${HOME}/ansible
+RUN ansible-playbook ${HOME}/ansible/site.yml --extra-vars "domain=${DOMAIN} wp_db_password=${DB_PASSWORD} wp_db_host=${DB_HOST}"
 
 
 # Volumes
