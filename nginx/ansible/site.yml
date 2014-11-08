@@ -39,8 +39,8 @@
     - name: setup runit
       copy: src={{ item.src }} dest={{ item.dest }} mode="0755"
       with_items:
-        - { src: '~/ansible/service/phpfpm.sh', dest: '/etc/service/phpfpm/run' }
-        - { src: '~/ansible/service/nginx.sh',  dest: '/etc/service/nginx/run' }
+        - { src: 'service/phpfpm.sh', dest: '/etc/service/phpfpm/run' }
+        - { src: 'service/nginx.sh',  dest: '/etc/service/nginx/run' }
 
     - name: apt-get clean
       shell: apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
