@@ -22,36 +22,15 @@
 #
 
 # Pull base image
-FROM phusion/baseimage:0.9.15
+FROM fdemmer/baseimage:latest
 MAINTAINER Florian Demmer <fdemmer@gmail.com>
 
-ENV LC_ALL C
-ENV HOME /root
-ENV DEBIAN_FRONTEND noninteractive
 
-# Disable baseimage SSH
-RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
+ENV DB_PASSWORD wordpress
 
-
-# Upgrade baseimage
-RUN apt-get update && apt-get upgrade -y
-
-# Install nginx
-RUN apt-get update && apt-get install -y \
-    mysql-server-5.6
-
-# Add run script
-ADD services/mysql.sh /etc/service/mysql/run
-RUN chmod +x /etc/service/mysql/run
-
-# Update configuration
-ADD config/bind.conf /etc/mysql/conf.d/bind.cnf
-
-# Remove pre-installed database
-RUN rm -rf /var/lib/mysql/*
-
-# Housekeeping
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+# Add and run provisioning
+ADD ansible ${HOME}/ansible
+RUN ansible-playbook ${HOME}/ansible/site.yml
 
 
 # Setup runit

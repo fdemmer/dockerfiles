@@ -1,0 +1,30 @@
+---
+- name: install mysql
+  hosts: localhost
+
+  tasks:
+    - name: install mysql
+      apt: name={{ item }} state=latest update_cache=yes
+      with_items:
+        - mysql-server-5.6
+
+    - name: configure mysql
+      template: src={{ item.src }} dest={{ item.dest }} mode="0664"
+      with_items:
+        - { src: 'config/bind.conf', dest: '/etc/mysql/conf.d/bind.cnf' }
+
+    - name: prepare runit
+      file: path={{ item.path }} state=directory mode="0755"
+      with_items:
+        - { path: '/etc/service/mysql' }
+
+    - name: setup runit
+      copy: src={{ item.src }} dest={{ item.dest }} mode="0755"
+      with_items:
+        - { src: 'service/mysql.sh', dest: '/etc/service/mysql/run' }
+
+    - name: remove pre-installed database
+      shell: rm -rf /var/lib/mysql/*
+
+    - name: apt-get clean
+      shell: apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

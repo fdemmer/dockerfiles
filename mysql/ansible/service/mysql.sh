@@ -12,9 +12,9 @@ if [ ! -f /var/lib/mysql/ibdata1 ]; then
     /usr/bin/mysqld_safe --skip-syslog &
 
     MYSQL_PASSWORD=`pwgen -c -n -1 12`
-    echo "*** Granting privileges to root@% with password $MYSQL_PASSWORD"
+    echo "*** Granting privileges to root@% with password $DB_PASSWORD"
     /usr/bin/mysqladmin --silent --wait=30 ping || exit 1
-    mysql -e "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '$MYSQL_PASSWORD' WITH GRANT OPTION; FLUSH PRIVILEGES;"
+    mysql -e "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '$DB_PASSWORD' WITH GRANT OPTION; FLUSH PRIVILEGES;"
 
     echo "*** Re-starting database server"
     killall mysqld
