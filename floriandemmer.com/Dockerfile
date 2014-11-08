@@ -29,6 +29,7 @@ ENV DOMAIN dragonstone
 ENV DB_PASSWORD wordpress
 ENV DB_HOST mysqldb
 
+
 # Add and run provisioning
 ADD ansible ${HOME}/ansible
 RUN ansible-playbook ${HOME}/ansible/site.yml --extra-vars "domain=${DOMAIN} wp_db_password=${DB_PASSWORD} wp_db_host=${DB_HOST}"

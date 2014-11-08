@@ -15,6 +15,7 @@
     - name: install tools
       apt: name={{ item }} state=latest update_cache=yes
       with_items:
+        - git
         - pwgen
         - mysql-client
 
