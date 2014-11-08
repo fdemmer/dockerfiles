@@ -4,11 +4,23 @@
 
   tasks:
     - name: install nginx
-      apt: name=nginx state=latest
+      apt: name={{ item }} state=latest
+      with_items:
+        - nginx
+
+    - name: configure nginx
+      copy: src={{ item.src }} dest={{ item.dest }} mode="0755"
+      with_items:
+        - { src: '~/ansible/config/nginx.conf', dest: '/etc/nginx/nginx.conf' }
 
     - name: install php
       apt: name={{ item }} state=latest
-      with_items: [php5-common, php5-cli, php5-fpm, php-apc, php5-mysql]
+      with_items:
+        - php5-common
+        - php5-cli
+        - php5-fpm
+        - php-apc
+        - php5-mysql
 
     - name: configure php
       lineinfile: dest={{ item.dest }} regexp='{{ item.regexp }}' line='{{ item.line }}' backrefs=yes
@@ -18,11 +30,17 @@
         - { dest: '/etc/php5/fpm/php.ini', regexp: '(\s*)post_max_size\s*=\s*8M', line: '\1post_max_size = 64M' }
         - { dest: '/etc/php5/fpm/php-fpm.conf', regexp: '(\s*);+daemonize\s*=\s*yes', line: '\1daemonize = no' }
 
-    - name: chmod runit scripts
-      file: path={{ item }} mode="0755"
+    - name: prepare runit
+      file: path={{ item.path }} state=directory mode="0755"
       with_items:
-        - '/etc/service/phpfpm/run'
-        - '/etc/service/nginx/run'
+        - { path: '/etc/service/phpfpm' }
+        - { path: '/etc/service/nginx' }
 
-    - name: housekeeping
+    - name: setup runit
+      copy: src={{ item.src }} dest={{ item.dest }} mode="0755"
+      with_items:
+        - { src: '~/ansible/service/phpfpm.sh', dest: '/etc/service/phpfpm/run' }
+        - { src: '~/ansible/service/nginx.sh',  dest: '/etc/service/nginx/run' }
+
+    - name: apt-get clean
       shell: apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
