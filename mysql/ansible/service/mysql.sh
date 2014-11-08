@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # initialize db if necessary
-if [ ! -f /var/lib/mysql/ibdata1 ]; then
+if [ ! -f /var/lib/mysql/mysql/db.MYI ]; then
     echo "*** Creating new database"
     if [ ! -f /usr/share/mysql/my-default.cnf ]; then
         cp /etc/mysql/my.cnf /usr/share/mysql/my-default.cnf
@@ -11,7 +11,7 @@ if [ ! -f /var/lib/mysql/ibdata1 ]; then
     echo "*** Starting database server"
     /usr/bin/mysqld_safe --skip-syslog &
 
-    MYSQL_PASSWORD=`pwgen -c -n -1 12`
+    DB_PASSWORD=`pwgen -c -n -1 12`
     echo "*** Granting privileges to root@% with password $DB_PASSWORD"
     /usr/bin/mysqladmin --silent --wait=30 ping || exit 1
     mysql -e "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '$DB_PASSWORD' WITH GRANT OPTION; FLUSH PRIVILEGES;"

@@ -6,12 +6,14 @@
     - name: install mysql
       apt: name={{ item }} state=latest update_cache=yes
       with_items:
+        - pwgen
         - mysql-server-5.6
 
     - name: configure mysql
       template: src={{ item.src }} dest={{ item.dest }} mode="0664"
       with_items:
         - { src: 'config/bind.conf', dest: '/etc/mysql/conf.d/bind.cnf' }
+        - { src: 'config/memory.conf', dest: '/etc/mysql/conf.d/memory.cnf' }
 
     - name: prepare runit
       file: path={{ item.path }} state=directory mode="0755"
