@@ -22,7 +22,7 @@
 #
 
 # Pull base image
-FROM fdemmer/baseimage
+FROM fdemmer/baseimage:latest
 MAINTAINER Florian Demmer <fdemmer@gmail.com
 
 
