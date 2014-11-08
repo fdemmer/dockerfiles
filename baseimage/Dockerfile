@@ -28,7 +28,7 @@ RUN apt-get update && apt-get upgrade -y
 
 
 # Setup ansible
-RUN apt-get update && apt-get install -y ansible python-apt
+RUN apt-get update && apt-get install -y ansible python-apt git
 RUN /bin/echo -e "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts
 
 
