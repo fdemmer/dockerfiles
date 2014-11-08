@@ -36,7 +36,7 @@ RUN ansible-playbook ${HOME}/ansible/site.yml --extra-vars "domain=${DOMAIN} wp_
 
 # Volumes
 VOLUME /etc/ssl/private
-VOLUME /usr/share/nginx/www
+VOLUME /var/log/nginx
 
 # Ports
 EXPOSE 80 443
