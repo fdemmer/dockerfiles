@@ -25,7 +25,7 @@ FROM fdemmer/nginx:latest
 MAINTAINER Florian Demmer <fdemmer@gmail.com>
 
 
-ENV DOMAIN dragonstone
+ENV DOMAIN floriandemmer.com
 ENV DB_PASSWORD wordpress
 ENV DB_HOST mysqldb
 
