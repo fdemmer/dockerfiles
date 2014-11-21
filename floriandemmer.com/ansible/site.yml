@@ -48,7 +48,6 @@
       template: src={{ item.src }} dest={{ item.dest }} mode="0664"
       with_items:
         - { src: 'config/nginx/default.conf', dest: '/etc/nginx/sites-enabled/default.conf' }
-        - { src: 'config/nginx/wordpress.conf', dest: '/etc/nginx/sites-enabled/wordpress.conf' }
         - { src: 'config/nginx/www.conf', dest: '/etc/nginx/sites-enabled/www.conf' }
 
     - name: install floriandemmer.com
