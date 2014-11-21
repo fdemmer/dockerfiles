@@ -53,13 +53,8 @@
 
     - name: install floriandemmer.com
       git: repo=https://github.com/fdemmer/floriandemmer.com.git
-           dest=/usr/share/nginx/www.floriandemmer.com
+           dest=/var/www/floriandemmer.com
            version={{ version }}
-
-    - name: update floriandemmer.com owner
-      file: path=/usr/share/nginx/www.floriandemmer.com
-            owner=www-data group=www-data
-            state=directory recurse=yes
 
     - name: download wordpress
       get_url: url=http://wordpress.org/wordpress-{{ wp_version }}.tar.gz
@@ -68,7 +63,7 @@
 
     - name: install wordpress
       unarchive: src=/tmp/wordpress-{{ wp_version }}.tar.gz
-                 dest=/usr/share/nginx
+                 dest=/var/www
                  copy=no
 
     - name: download fresh salt
@@ -78,10 +73,10 @@
 
     - name: configure wordpress
       template: src=config/wordpress/wp-config.php
-                dest=/usr/share/nginx/wordpress/
+                dest=/var/www/wordpress/
 
-    - name: update wordpress owner
-      file: path=/usr/share/nginx/wordpress/
+    - name: chown /var/www
+      file: path=/var/www
             owner=www-data group=www-data
             state=directory recurse=yes
 
