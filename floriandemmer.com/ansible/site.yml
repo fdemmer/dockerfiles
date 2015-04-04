@@ -50,10 +50,15 @@
         - { src: 'config/nginx/default.conf', dest: '/etc/nginx/sites-enabled/default.conf' }
         - { src: 'config/nginx/www.conf', dest: '/etc/nginx/sites-enabled/www.conf' }
 
-    - name: install floriandemmer.com
+    - name: clone floriandemmer.com
       git: repo=https://github.com/fdemmer/floriandemmer.com.git
-           dest=/var/www/floriandemmer.com
+           dest=/var/www/floriandemmer.com.git
            version={{ version }}
+
+    - name: install floriandemmer.com
+      file: src=/var/www/floriandemmer.com.git/src
+            dest=/var/www/floriandemmer.com
+            state=link
 
     - name: download wordpress
       get_url: url=http://wordpress.org/wordpress-{{ wp_version }}.tar.gz
