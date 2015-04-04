@@ -14,7 +14,7 @@
         - { src: '~/ansible/config/nginx.conf', dest: '/etc/nginx/nginx.conf' }
 
     - name: install php
-      apt: name={{ item }} state=latest
+      apt: name={{ item }} state=latest update_cache=yes
       with_items:
         - php5-common
         - php5-cli
