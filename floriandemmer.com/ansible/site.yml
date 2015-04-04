@@ -4,8 +4,8 @@
   vars:
     domain: floriandemmer.com
     version: master
-    wp_version: 4.0.1
-    wp_sha256sum: 94ce5402f6ab5662c37916825f7725c517f6f9328ff3de7aaf2840551ac32f16
+    wp_version: 4.1.1
+    wp_sha256sum: 618ac08c2be3959b37f4ee0006558da65b7a4bca19bfb4b86ea60e5d53043ee9
     wp_db_name: wordpress
     wp_db_user: wordpress
     wp_db_password: wordpress
