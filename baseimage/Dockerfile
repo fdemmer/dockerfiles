@@ -13,7 +13,7 @@
 
 
 # Pull base image
-FROM phusion/baseimage:0.9.15
+FROM phusion/baseimage:0.9.16
 MAINTAINER Florian Demmer <fdemmer@gmail.com>
 
 ENV LC_ALL C
